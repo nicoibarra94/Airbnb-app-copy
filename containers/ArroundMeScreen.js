@@ -11,7 +11,7 @@ export default function ArroundMeScreen() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    const askPermission = async () => {
+    const askPermissionAndGetData = async () => {
       let permissionResponse =
         await Location.requestForegroundPermissionsAsync();
 
@@ -24,6 +24,15 @@ export default function ArroundMeScreen() {
           //   latitude: location.coords.latitude,
           //   longitude: location.coords.longitude,
         };
+
+        try {
+          const response = await axios.get(
+            `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${obj.latitude}&longitude=${obj.longitude}`
+          );
+          setData(response.data);
+        } catch (error) {
+          console.log(error.message);
+        }
         setCoords(obj);
       } else {
         setError(true);
@@ -31,19 +40,7 @@ export default function ArroundMeScreen() {
       setIsLoading(false);
     };
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${coords.latitude}&longitude=${coords.longitude}`
-        );
-
-        setData(response.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    askPermission();
-    fetchData();
+    askPermissionAndGetData();
   }, []);
 
   return isLoading === true ? (
@@ -62,7 +59,20 @@ export default function ArroundMeScreen() {
         longitudeDelta: 0.2,
       }}
       showsUserLocation={true}
-    ></MapView>
+    >
+      {data.map((marker, index) => {
+        return (
+          <MapView.Marker
+            key={index}
+            coordinate={{
+              latitude: marker.location[1],
+              longitude: marker.location[0],
+            }}
+            title={marker.title}
+          ></MapView.Marker>
+        );
+      })}
+    </MapView>
   );
 }
 

@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   FlatList,
   TouchableOpacity,
-  ScrollView,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
@@ -94,19 +94,12 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
+    width: Dimensions.get("screen").width * 0.95,
+    marginLeft: 12.5,
     marginTop: 10,
-  },
-  containerLogo: {
-    alignItems: "center",
-    width: "100%",
-    marginBottom: 10,
-    borderBottomColor: "#c9c7c7",
-    borderBottomWidth: 1,
   },
   offerContainer: {
     marginBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
     borderBottomColor: "#c9c7c7",
     borderBottomWidth: 1,
   },

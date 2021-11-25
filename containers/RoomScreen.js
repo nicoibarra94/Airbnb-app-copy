@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 import MapView from "react-native-maps";
 import axios from "axios";
@@ -118,10 +117,17 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "white" },
+  container: {
+    backgroundColor: "white",
+    height: "100%",
+  },
   logo: { width: 80, height: 80 },
-  logoContainer: { alignItems: "center" },
-  imageOffer: { width: 428, height: 350, resizeMode: "contain" },
+  logoContainer: { justifyContent: "center" },
+  imageOffer: {
+    width: Dimensions.get("screen").width * 1,
+    height: 350,
+    resizeMode: "contain",
+  },
   containerPrice: {
     position: "absolute",
     backgroundColor: "black",
@@ -162,5 +168,9 @@ const styles = StyleSheet.create({
   },
   review: { fontSize: 12, color: "#8e8e8e", marginLeft: 5 },
   description: { lineHeight: 22 },
-  map: { width: "100%", height: 230, marginTop: 20 },
+  map: {
+    width: Dimensions.get("window").width * 0.9,
+    height: Dimensions.get("window").height * 0.25,
+    marginTop: 20,
+  },
 });
