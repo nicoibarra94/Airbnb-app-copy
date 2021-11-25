@@ -138,7 +138,7 @@ export default function App() {
                             <Image
                               style={{
                                 width: 50,
-                                height: 50,
+                                height: 30,
                               }}
                               source={require("./assets/Airbnb-Embleme.jpeg")}
                               resizeMode="contain"
